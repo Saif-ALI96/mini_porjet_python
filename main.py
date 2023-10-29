@@ -9,6 +9,8 @@ MAX_BET = 100  # رهان
 MIN_BET = 1
 #  creer une faction qui demande l'utilisateur de entrer un nombre 
 #  إيداع
+
+
 def deposit():
     while True:
         amount = input("what would you like to depoist ? $ \n")
@@ -57,25 +59,6 @@ def get_bet():
 
     return bet
 
-def main():
-    balance = deposit()
-    lines = get_number_of_lines()
-    #  ici on voir si l'argent de pari est supérieur de son depôt
-    while True:
-        bet = get_bet()
-        total_bet = bet * lines
-        if total_bet > balance:
-            print(f"You don't have enough money in your current account, which is it {deposit}!")
-        
-        else :
-            break
-
-    print(f"you are betting ${bet} on {lines} lines. Total bet is iqual to : ${total_bet}")
-    # print(balance, lines)
-
-main()
-
-
 # maintenant la partie qui va faire fonctionner la machine
 ROWS = 3
 COLS = 3
@@ -97,7 +80,7 @@ def generate_slot_machine_spin(rows, cols,symbols):
 
             spin.append(symbol)
     
-    columns = [[], [],[]]
+    columns = []
 
     for _ in range(cols):
         column = []
@@ -113,4 +96,42 @@ def generate_slot_machine_spin(rows, cols,symbols):
 
     return columns
 
+
+#  on voudrait voir ou printer ce qu'il y a dans columns pour 
+#  pouvoir les tester apres 
+
+def print_slot_machine(columns):
+                
+    for row in range(len(columns[0])):
+        
+        for i , column in enumerate(columns):
+            if i != len(columns) - 1 :
+                print(column[row], end=" | ")
+            else:
+                print(column[row], end="")
+        print()
+
+
+#  ici c'est l'affiche de notre jeu 
+def main():
+    balance = deposit()
+    lines = get_number_of_lines()
+    #  ici on voir si l'argent de pari est supérieur de son depôt
+    while True:
+        bet = get_bet()
+        total_bet = bet * lines
+        if total_bet > balance:
+            print(f"You don't have enough money in your current account, which is it {balance}!")
+        
+        else :
+            break
+
+    print(f"you are betting ${bet} on {lines} lines. Total bet is iqual to : ${total_bet}")
+    # print(balance, lines)
+
+    slots = generate_slot_machine_spin(ROWS, COLS ,symbol_count)
+    
+    print_slot_machine(slots)
+
+main()
 

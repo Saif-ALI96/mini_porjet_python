@@ -77,3 +77,40 @@ main()
 
 
 # maintenant la partie qui va faire fonctionner la machine
+ROWS = 3
+COLS = 3
+
+symbol_count = {
+    "A" : 2 , 
+    "B" : 4 ,
+    "C" : 6 ,
+    "D" : 8
+}
+def generate_slot_machine_spin(rows, cols,symbols):
+#  rows : le nombre de rangées dans la machine
+#  cols : le nombre de colonnes dans la machine
+#  symbols : le dictionnaire contenant les symboles et leur nombre d'apparitions (par exemple des lettres ou des chiffres)
+    spin = []
+    for symbol , symbol_count in symbols.items():
+
+        for _ in range(symbol_count):
+
+            spin.append(symbol)
+    
+    columns = [[], [],[]]
+
+    for _ in range(cols):
+        column = []
+        current_symbols = spin.copy()
+
+        for _ in range(rows):
+
+            value = random.choice(current_symbols)
+            current_symbols.remove(value)
+            column.append(value)
+        
+        columns.append(column)
+
+    return columns
+
+

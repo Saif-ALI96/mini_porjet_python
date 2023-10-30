@@ -111,6 +111,34 @@ def print_slot_machine(columns):
                 print(column[row], end="")
         print()
 
+#  nous devons savoir quel est leur meilleur, sur quoi ils parient
+#  et combien d'argent ont-ils gagné en total ?
+symbol_value = {
+    "A" : 5 , 
+    "B" : 4 ,
+    "C" : 3 ,
+    "D" : 2
+}
+
+def check_winnings(columns,lines,bet, values):
+    winnings = 0
+    winnings_lines = []
+    for line in range(lines):
+        symbol = columns[0][line]
+
+        for column in columns:
+            symbol_to_check = column[line]
+            if symbol != symbol_to_check:
+                break
+        else:
+            winnings += values[symbol] * bet
+            winnings_lines.append(winnings_lines + 1 )
+
+        
+    return winnings, winnings_lines
+
+
+
 
 #  ici c'est l'affiche de notre jeu 
 def main():
@@ -130,7 +158,7 @@ def main():
     # print(balance, lines)
 
     slots = generate_slot_machine_spin(ROWS, COLS ,symbol_count)
-    
+
     print_slot_machine(slots)
 
 main()

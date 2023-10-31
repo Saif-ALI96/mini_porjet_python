@@ -132,7 +132,7 @@ def check_winnings(columns,lines,bet, values):
                 break
         else:
             winnings += values[symbol] * bet
-            winnings_lines.append(winnings_lines + 1 )
+            winnings_lines.append(line + 1 )
 
         
     return winnings, winnings_lines
@@ -141,16 +141,16 @@ def check_winnings(columns,lines,bet, values):
 
 
 #  ici c'est l'affiche de notre jeu 
-def main():
-    balance = deposit()
+def game(balance):
+
     lines = get_number_of_lines()
-    #  ici on voir si l'argent de pari est supérieur de son depôt
+
+        #  ici on voir si l'argent de pari est supérieur de son depôt
     while True:
         bet = get_bet()
         total_bet = bet * lines
         if total_bet > balance:
             print(f"You don't have enough money in your current account, which is it {balance}!")
-        
         else :
             break
 
@@ -160,6 +160,25 @@ def main():
     slots = generate_slot_machine_spin(ROWS, COLS ,symbol_count)
 
     print_slot_machine(slots)
+    winnings, winnings_lines = check_winnings(slots, lines, bet, symbol_value)
+    print(f"you won ${winnings}.")
+    print(f"You won on lines :", *winnings_lines)
+
+    return winnings - total_bet
+
+def main():
+    balance = deposit()
+    while True:
+        print(f"current blance is ${balance}")
+
+        spin = input("Press enter to play (q to quit).")
+
+        if spin == "q":
+            break
+
+        balance += game(balance)
+
+    print(f"You left with ${balance}")
 
 main()
 
